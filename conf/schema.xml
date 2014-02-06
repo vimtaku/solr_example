@@ -5,11 +5,14 @@
     <field name="chef"        type="text_ja" indexed="true" stored="true"/>
     <field name="recipe_name" type="text_ja" indexed="true" stored="true"/>
     <field name="genre"       type="text_ja" indexed="true" stored="true" multiValued="true"/>
+    <field name="genre_facet" type="text_ja" indexed="true" stored="false" multiValued="true"/>
     <field name="price"       type="int"     indexed="true" stored="true"/>
     <field name="_version_"   type="long"    indexed="true" stored="true"/>
   </fields>
 
   <uniqueKey>recipe_id</uniqueKey>
+
+  <copyField source="genre" dest="genre_facet"/>
 
   <types>
     <fieldType name="string" class="solr.StrField" sortMissingLast="true"/>
