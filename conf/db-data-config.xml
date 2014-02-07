@@ -1,0 +1,24 @@
+<dataConfig>
+    <dataSource type="JdbcDataSource" driver="com.mysql.jdbc.Driver"
+        url="jdbc:mysql://localhost:3306/solrsample"
+        user="vimtaku" password="hogehoge"/>
+    <document>
+        <entity name="recipe_mst" pk="recipe_id"
+            query="select * from recipe_mst"
+            deltaImportQuery="SELECT * FROM recipe_mst WHERE recipe_id = ${dataimporter.delta.recipe_id}"
+            deltaQuery="select recipe_id from recipe_mst WHERE updated_at >= '${dataimporter.last_index_time}'">
+            <field column="recipe_id" name="recipe_id" />
+            <field column="recipe_name" name="recipe_name" />
+            <field column="price" name="price" />
+            <entity name="recipe_genre_rel"
+                query="select * from recipe_genre_rel where recipe_id = '${recipe_mst.recipe_id}'">
+                <entity name="genre_mst" query="select * from genre_mst where genre_id = '${recipe_genre_rel.genre_id}'">
+                    <field column="name" name="genre" />
+                </entity>
+            </entity>
+            <entity name="chef_mst" query="select * from chef_mst where chef_id = '${recipe_mst.chef_id}'">
+                <field column="name" name="chef" />
+            </entity>
+        </entity>
+    </document>
+</dataConfig>

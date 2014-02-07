@@ -84,6 +84,9 @@
   <lib dir="../../../contrib/velocity/lib" regex=".*\.jar" />
   <lib dir="../../../dist/" regex="solr-velocity-\d.*\.jar" />
 
+  <lib dir="../../../dist/" regex="solr-dataimporthandler-.*\.jar" />
+  <lib dir="../../../dist/" regex="mysql.*\.jar" />
+
   <!-- an exact 'path' can be used instead of a 'dir' to specify a 
        specific jar file.  This will cause a serious error to be logged 
        if it can't be loaded.
@@ -1511,6 +1514,15 @@
       <str>terms</str>
     </arr>
   </requestHandler>
+
+
+  <requestHandler name="/dataimport"
+      class="org.apache.solr.handler.dataimport.DataImportHandler">
+      <lst name="defaults">
+          <str name="config">db-data-config.xml</str>
+      </lst>
+  </requestHandler>
+
 
 
   <!-- <!&#45;&#45; Query Elevation Component -->
