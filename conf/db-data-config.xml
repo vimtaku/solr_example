@@ -6,7 +6,8 @@
         <entity name="recipe_mst" pk="recipe_id"
             query="select * from recipe_mst"
             deltaImportQuery="SELECT * FROM recipe_mst WHERE recipe_id = ${dataimporter.delta.recipe_id}"
-            deltaQuery="select recipe_id from recipe_mst WHERE updated_at >= '${dataimporter.last_index_time}'">
+            deltaQuery="select recipe_id from recipe_mst WHERE updated_at >= '${dataimporter.last_index_time}'"
+            >
             <field column="recipe_id" name="recipe_id" />
             <field column="recipe_name" name="recipe_name" />
             <field column="price" name="price" />
@@ -16,7 +17,11 @@
                     <field column="name" name="genre" />
                 </entity>
             </entity>
-            <entity name="chef_mst" query="select * from chef_mst where chef_id = '${recipe_mst.chef_id}'">
+            <entity name="chef_mst" pk="chef_id"
+                query="select * from chef_mst where chef_id = '${recipe_mst.chef_id}'"
+                deltaQuery="select chef_id from chef_mst"
+                parentDeltaQuery="select recipe_id from chef_mst where chef_id = ${chef_mst.chef_id}"
+                >
                 <field column="name" name="chef" />
             </entity>
         </entity>
