@@ -10,9 +10,17 @@
 function processAdd(cmd) {
 
   doc = cmd.solrDoc;  // org.apache.solr.common.SolrInputDocument
+  logger.info("update-script#processAdd: doc=" + doc);
   id = doc.getFieldValue("id");
   logger.info("update-script#processAdd: id=" + id);
 
+  genre_json = doc.getFieldValue("genre_json");
+  logger.info("update-script#processAdd: genre_json=" + genre_json);
+
+  doc.setField("genre", ["whatever", "whenever"]);
+
+
+//
 // Set a field value:
 //  doc.setField("foo_s", "whatever");
 
@@ -37,6 +45,7 @@ function processDelete(cmd) {
 }
 
 function processMergeIndexes(cmd) {
+  logger.info("mmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmm");
   // no-op
 }
 
@@ -49,5 +58,6 @@ function processRollback(cmd) {
 }
 
 function finish() {
+  logger.info("loadedddddddddddddddddddddddddddddddddddddddd");
   // no-op
 }

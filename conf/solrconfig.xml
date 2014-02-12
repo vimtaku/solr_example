@@ -890,7 +890,8 @@
      </lst>
   </requestHandler>
 
- 
+
+
   <!-- A Robust Example 
        
        This example SearchHandler declaration shows off usage of the
@@ -1519,7 +1520,14 @@
   <requestHandler name="/dataimport"
       class="org.apache.solr.handler.dataimport.DataImportHandler">
       <lst name="defaults">
-          <str name="config">db-data-config.xml</str>
+        <str name="config">db-data-config.xml</str>
+        <str name="update.chain">script</str>
+      </lst>
+  </requestHandler>
+
+  <requestHandler name="/update/script" class="solr.XmlUpdateRequestHandler">
+      <lst name="defaults">
+        <str name="update.chain">script</str>
       </lst>
   </requestHandler>
 
@@ -1716,18 +1724,14 @@
 
     See more about the script update processor at http://wiki.apache.org/solr/ScriptUpdateProcessor
   -->
-  <!--
     <updateRequestProcessorChain name="script">
       <processor class="solr.StatelessScriptUpdateProcessorFactory">
         <str name="script">update-script.js</str>
-        <lst name="params">
-          <str name="config_param">example config parameter</str>
-        </lst>
       </processor>
+      <processor class="solr.LogUpdateProcessorFactory" />
       <processor class="solr.RunUpdateProcessorFactory" />
     </updateRequestProcessorChain>
-  -->
- 
+
   <!-- Response Writers
 
        http://wiki.apache.org/solr/QueryResponseWriter

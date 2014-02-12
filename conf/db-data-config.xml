@@ -11,6 +11,7 @@
             <field column="recipe_id" name="recipe_id" />
             <field column="recipe_name" name="recipe_name" />
             <field column="price" name="price" />
+            <field column="genre_json" name="genre_json" />
             <entity name="recipe_genre_rel"
                 query="select * from recipe_genre_rel where recipe_id = '${recipe_mst.recipe_id}'">
                 <entity name="genre_mst" query="select * from genre_mst where genre_id = '${recipe_genre_rel.genre_id}'">
